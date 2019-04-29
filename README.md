@@ -38,6 +38,8 @@ Please note that if you are using VS Code and you ran this command in VS Code te
 
 Open the Dockerfile in the text editor of your choice and replace the contents with the following:
 
+#### Windows container:
+
     FROM microsoft/dotnet:2.2-aspnetcore-runtime-nanoserver-1803 AS base
     WORKDIR /app
     EXPOSE 80
@@ -56,6 +58,21 @@ Open the Dockerfile in the text editor of your choice and replace the contents w
     FROM base AS final
     WORKDIR /app
     COPY --from=publish /app .
+    ENTRYPOINT ["dotnet", "ChartsMicroservice.dll"]
+
+#### Linux container:
+
+    FROM microsoft/dotnet:latest
+    WORKDIR /app
+    COPY ["ChartsMicroservice.csproj", "./"]
+    RUN dotnet restore "./ChartsMicroservice.csproj"
+    COPY . .
+    RUN dotnet publish "ChartsMicroservice.csproj" -c Release -o /app/publish
+    RUN dir
+    WORKDIR /app/publish
+    RUN dir
+    EXPOSE 5001
+    # ENV ASPNETCORE_URLS http://*:5001
     ENTRYPOINT ["dotnet", "ChartsMicroservice.dll"]
 
 ## Switch to Linux containers
@@ -95,9 +112,21 @@ A Docker container is an instance of your app, created from the definition and r
 
 To run your app in a container, run the following command:
 
-    docker run -it --rm -p 5001:80 chartsmicroservice
+    docker run -it --rm -p 8080:5000 chartsmicroservice
 
-Once the command completes, browse to http://localhost:5001/api/charts or http://localhost:5001/swagger.
+Once the command completes, browse to http://localhost:8080/api/charts or http://localhost:8080/swagger.
+
+## How to make HTTP requests from one container to another container?
+
+Find out all running containers using the below command:
+
+    docker ps -a
+
+Run the below command to get the IP address of node-export-server docker container to which we are going to make HTTP requests. Replace the <CONTAINER_ID> with the one that we got in previous step.
+
+    docker inspect --format '{{ .NetworkSettings.IPAddress }}' <CONTAINER ID>
+
+The resulting IP address should be given as value in appSettings.json's "ChartExportServerUrl" property.
 
 ## Push to docker hub
 
@@ -147,3 +176,6 @@ These are the fundamental building blocks to get an ASP.NET Core web api into a 
 3. https://stackoverflow.com/questions/40675162/install-a-nuget-package-in-visual-studio-code
 4. https://aka.ms/containercompat
 5. https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio-code
+6. https://docs.docker.com/engine/examples/dotnetcore/
+7. https://stormpath.com/blog/tutorial-deploy-asp-net-core-on-linux-with-docker
+8. http://networkstatic.net/10-examples-of-how-to-get-docker-container-ip-address/

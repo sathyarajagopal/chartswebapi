@@ -54,7 +54,7 @@ namespace ChartsMicroservice.Controllers
                 using (var client = new HttpClient())
                 {
                     //string chartServerUrl = ConfigSection.GetSection("appSettings").GetSection("ChartServerUrl").Value;
-                    string chartServerUrl = "http://localhost:7801";
+                    string chartServerUrl = "http://172.17.0.2:7801";
                     string route = chartServerUrl + "/health";
                     _logger.LogInformation("Chart export server request url is {0}", route);
                     response = await client.GetAsync(route);
