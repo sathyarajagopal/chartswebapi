@@ -71,8 +71,8 @@ Open the Dockerfile in the text editor of your choice and replace the contents w
     RUN dir
     WORKDIR /app/publish
     RUN dir
-    EXPOSE 5001
-    # ENV ASPNETCORE_URLS http://*:5001
+    EXPOSE 5000/tcp
+    ENV ASPNETCORE_URLS http://*:5000
     ENTRYPOINT ["dotnet", "ChartsMicroservice.dll"]
 
 ## Switch to Linux containers
