@@ -26,7 +26,7 @@ To run with Docker Image you need a Dockerfile — a text file that contains ins
 
 Since you opened a new command prompt in the previous step, you'll need to return to the directory you created your project in.
 
-    cd ChartsMicroservice
+    cd ChartsWebAPI
 
 ### Add a DockerFile
 
@@ -46,34 +46,34 @@ Open the Dockerfile in the text editor of your choice and replace the contents w
 
     FROM microsoft/dotnet:2.2-sdk-nanoserver-1803 AS build
     WORKDIR /src
-    COPY ["ChartsMicroservice.csproj", "./"]
-    RUN dotnet restore "./ChartsMicroservice.csproj"
+    COPY ["ChartsWebAPI.csproj", "./"]
+    RUN dotnet restore "./ChartsWebAPI.csproj"
     COPY . .
     WORKDIR "/src/."
-    RUN dotnet build "ChartsMicroservice.csproj" -c Release -o /app
+    RUN dotnet build "ChartsWebAPI.csproj" -c Release -o /app
 
     FROM build AS publish
-    RUN dotnet publish "ChartsMicroservice.csproj" -c Release -o /app
+    RUN dotnet publish "ChartsWebAPI.csproj" -c Release -o /app
 
     FROM base AS final
     WORKDIR /app
     COPY --from=publish /app .
-    ENTRYPOINT ["dotnet", "ChartsMicroservice.dll"]
+    ENTRYPOINT ["dotnet", "ChartsWebAPI.dll"]
 
 #### Linux container:
 
     FROM microsoft/dotnet:latest
     WORKDIR /app
-    COPY ["ChartsMicroservice.csproj", "./"]
-    RUN dotnet restore "./ChartsMicroservice.csproj"
+    COPY ["ChartsWebAPI.csproj", "./"]
+    RUN dotnet restore "./ChartsWebAPI.csproj"
     COPY . .
-    RUN dotnet publish "ChartsMicroservice.csproj" -c Release -o /app/publish
+    RUN dotnet publish "ChartsWebAPI.csproj" -c Release -o /app/publish
     RUN dir
     WORKDIR /app/publish
     RUN dir
     EXPOSE 5000/tcp
     ENV ASPNETCORE_URLS http://*:5000
-    ENTRYPOINT ["dotnet", "ChartsMicroservice.dll"]
+    ENTRYPOINT ["dotnet", "ChartsWebAPI.dll"]
 
 ## Switch to Linux containers
 
@@ -81,25 +81,25 @@ Right click on Docker Desktop whale icon in systems tray and select "Switch to L
 
 ## Remove existing Docker image
 
-You can run the following command to see a list of all images available on your machine. This is to check whether chartsmicroservice image already exists.
+You can run the following command to see a list of all images available on your machine. This is to check whether ChartsWebAPI image already exists.
 
     docker image ls
 
 ### Delete the image
 
-If chartsmicroservice image exists then delete the image using the following command:
+If ChartsWebAPI image exists then delete the image using the following command:
 
-    docker image rm -f chartsmicroservice
+    docker image rm -f ChartsWebAPI
 
 ## Create Docker image
 
 Run the following command:
 
-    docker build -t chartsmicroservice .
+    docker build -t ChartsWebAPI .
 
 The docker build command uses the information from your Dockerfile to build a Docker image.
 
-The -t parameter tells it to tag (or name) the image as chartsmicroservice.
+The -t parameter tells it to tag (or name) the image as ChartsWebAPI.
 The final parameter tells it which directory to find the Dockerfile in (. specifies the current directory).
 
 You can run the following command to see a list of all images available on your machine, including the one you just created.
@@ -112,7 +112,7 @@ A Docker container is an instance of your app, created from the definition and r
 
 To run your app in a container, run the following command:
 
-    docker run -it --rm -p 8080:5000 chartsmicroservice
+    docker run -it --rm -p 8080:5000 ChartsWebAPI
 
 Once the command completes, browse to http://localhost:8080/api/charts or http://localhost:8080/swagger.
 
@@ -144,8 +144,8 @@ Use the username and password created when you downloaded Docker. You can visit 
 
 Re-tag (rename) your Docker image under your username and push it to Docker Hub using the following commands:
 
-    docker tag chartsmicroservice [YOUR DOCKER USERNAME]/chartsmicroservice
-    docker push [YOUR DOCKER USERNAME]/chartsmicroservice
+    docker tag ChartsWebAPI [YOUR DOCKER USERNAME]/ChartsWebAPI
+    docker push [YOUR DOCKER USERNAME]/ChartsWebAPI
 
 ## Remove Docker Containers
 
@@ -165,7 +165,7 @@ Now run the below command to remove the containers.
 
     docker system prune -a
 
-Congratulations! You've successfully created a small, independent Charts Microservice using ASP.NET Core Webapi that can be deployed and scaled using Docker containers.
+Congratulations! You've successfully created a small, independent ChartsWebAPI using ASP.NET Core Webapi that can be deployed and scaled using Docker containers.
 
 These are the fundamental building blocks to get an ASP.NET Core web api into a Docker container.
 

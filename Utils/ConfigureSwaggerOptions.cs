@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ChartsMicroservice
+namespace ChartsWebAPI.Utils
 {
     public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 	{

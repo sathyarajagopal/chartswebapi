@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ChartsWebAPI.Utils;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -12,7 +13,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace ChartsMicroservice
+namespace ChartsWebAPI
 {
     public class Startup
     {

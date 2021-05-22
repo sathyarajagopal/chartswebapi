@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace ChartsMicroservice.Controllers
+namespace ChartsWebAPI.Controllers
 {
     [ApiVersion("1")]
     [ApiVersion("2")]

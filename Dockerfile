@@ -3,13 +3,13 @@
 
 FROM microsoft/dotnet:latest
 WORKDIR /app
-COPY ["ChartsMicroservice.csproj", "./"]
-RUN dotnet restore "./ChartsMicroservice.csproj"
+COPY ["ChartsWebAPI.csproj", "./"]
+RUN dotnet restore "./ChartsWebAPI.csproj"
 COPY . .
-RUN dotnet publish "ChartsMicroservice.csproj" -c Release -o /app/publish
+RUN dotnet publish "ChartsWebAPI.csproj" -c Release -o /app/publish
 RUN dir
 WORKDIR /app/publish
 RUN dir
 EXPOSE 5000/tcp
 ENV ASPNETCORE_URLS http://*:5000
-ENTRYPOINT ["dotnet", "ChartsMicroservice.dll"]
+ENTRYPOINT ["dotnet", "ChartsWebAPI.dll"]

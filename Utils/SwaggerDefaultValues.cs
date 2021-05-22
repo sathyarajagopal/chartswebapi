@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ChartsMicroservice
+namespace ChartsWebAPI.Utils
 {
     public class SwaggerDefaultValues : IOperationFilter
 	{

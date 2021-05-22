@@ -1,4 +1,4 @@
-﻿namespace ChartsMicroservice.Models
+﻿namespace ChartsWebAPI.Models
 {
     public class ErrorViewModel
     {

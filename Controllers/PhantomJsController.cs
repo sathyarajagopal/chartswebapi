@@ -1,4 +1,4 @@
-﻿using ChartsMicroservice.Utils;
+﻿using ChartsWebAPI.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ChartsMicroservice.Controllers
+namespace ChartsWebAPI.Controllers
 {
     [ApiVersion("1")]
     [Route("/v{version:apiVersion}/phantomjs")]
@@ -57,7 +57,7 @@ namespace ChartsMicroservice.Controllers
                 string args = string.Format("highcharts-convert.js -infile {0} -constr Chart -type svg -resources resources.json", sample);
                 string wd = System.IO.File.ReadAllText(Path.GetFullPath("phantomjs"));
                 ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.FileName = @"C:\Users\sathya\Git\chartsmicroservice\phantomjs\phantomjs.exe";
+                startInfo.FileName = @"C:\Users\sathya\Git\chartswebapi\phantomjs\phantomjs.exe";
                 startInfo.Arguments = args;
                 startInfo.WorkingDirectory = wd;
                 startInfo.UseShellExecute = false;

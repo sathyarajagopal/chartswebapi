@@ -1,4 +1,4 @@
-﻿using ChartsMicroservice.Utils;
+﻿using ChartsWebAPI.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ChartsMicroservice.Controllers
+namespace ChartsWebAPI.Controllers
 {
     [ApiVersion("1")]
     [ApiVersion("2")]

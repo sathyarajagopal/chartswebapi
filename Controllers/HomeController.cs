@@ -1,8 +1,8 @@
-﻿using ChartsMicroservice.Models;
+﻿using ChartsWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ChartsMicroservice.Controllers
+namespace ChartsWebAPI.Controllers
 {
     public class HomeController : ControllerBase
     {

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace ChartsMicroservice.Utils
+namespace ChartsWebAPI.Utils
 {
     public sealed class SerializationHelper
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ChartsMicroservice.Controllers
+namespace ChartsWebAPI.Controllers
 {
     [ApiVersion("1")]
     [ApiVersion("2")]
