@@ -6,6 +6,9 @@
       <GenerateDocumentationFile>true</GenerateDocumentationFile>
       <NoWarn>1701;1702;1591</NoWarn>
     <DefineConstants>LOG;TRACE;DEBUG;</DefineConstants>
+    <UserSecretsId>fb53d206-e988-463d-a936-2066ef4342aa</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\ChartsWebAPI.xml</DocumentationFile>
@@ -15,6 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="3.1.14" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.14" />
