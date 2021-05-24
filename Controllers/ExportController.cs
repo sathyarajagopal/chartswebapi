@@ -1,8 +1,10 @@
 ﻿using ChartsWebAPI.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web.Resource;
 using System;
 using System.IO;
 using System.Net;
@@ -15,6 +17,7 @@ namespace ChartsWebAPI.Controllers
     [ApiVersion("2")]
     [Route("/v{version:apiVersion}/export")]
     [ApiController]
+    [Authorize]
     public class ExportController : ControllerBase
     {
         private readonly ILogger _logger;
@@ -37,6 +40,9 @@ namespace ChartsWebAPI.Controllers
 
         private static readonly string sample = System.IO.File.ReadAllText(Path.GetFullPath(Path.Combine("Mocks", "basic.json")));
 
+        // The web API will only accept tokens 1) for users, and 2) having the "access_as_user" scope for this API
+        static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
+
         public ExportController(IConfiguration configuration, IWebHostEnvironment env, ILogger<ExportController> logger)
         {
             Configuration = configuration;
@@ -52,6 +58,7 @@ namespace ChartsWebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> SampleV1(string source)
         {
+            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             string result = string.Empty;
             var response = new HttpResponseMessage();
             try

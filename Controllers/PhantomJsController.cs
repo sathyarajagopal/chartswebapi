@@ -1,4 +1,5 @@
 ﻿using ChartsWebAPI.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ChartsWebAPI.Controllers
 {
+    [Authorize]
     [ApiVersion("1")]
     [Route("/v{version:apiVersion}/phantomjs")]
     [ApiController]
