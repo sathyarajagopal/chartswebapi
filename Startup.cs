@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Web;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ChartsWebAPI
@@ -51,16 +52,16 @@ namespace ChartsWebAPI
             services.AddHttpClient();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddScoped(sp => sp.GetRequiredService<IOptionsSnapshot<AppSettings>>().Value);
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                Configuration.Bind($"{nameof(AppSettings.AzureAd)}", options);
-            });
-            //services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
+            services.AddMicrosoftIdentityWebApiAuthentication(Configuration, "AzureAd");
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //.AddJwtBearer(options =>
+            //{
+            //    Configuration.Bind($"{nameof(AppSettings.AzureAd)}", options);
+            //});
             //string identityUrl = Configuration.GetSection("appSettings").GetSection("AuthorityUrl").Value;
             //string callBackUrl = Configuration.GetSection("appSettings").GetSection("CallBackUrl").Value;
             //var sessionCookieLifetime = Configuration.GetValue("SessionCookieLifetimeMinutes", 60);

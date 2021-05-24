@@ -1,9 +1,11 @@
-﻿using ChartsWebAPI.Utils;
+﻿using ChartsWebAPI.Models;
+using ChartsWebAPI.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web.Resource;
 using System;
 using System.IO;
@@ -23,6 +25,7 @@ namespace ChartsWebAPI.Controllers
         private readonly ILogger _logger;
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Environment { get; }
+        public IOptionsSnapshot<AppSettings> AppSettings { get; }
 
         private static string _projectPath;
         public static string ProjectPath
@@ -43,13 +46,14 @@ namespace ChartsWebAPI.Controllers
         // The web API will only accept tokens 1) for users, and 2) having the "access_as_user" scope for this API
         static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
 
-        public ExportController(IConfiguration configuration, IWebHostEnvironment env, ILogger<ExportController> logger)
+        public ExportController(IConfiguration configuration, IWebHostEnvironment env, IOptionsSnapshot<AppSettings> appSettings, ILogger<ExportController> logger)
         {
             Configuration = configuration;
             Environment = env;
             ProjectPath = env.ContentRootPath;
             WebRootPath = env.WebRootPath;
             _logger = logger;
+            AppSettings = appSettings;
         }
 
         // GET api/v1/export/sample/external
@@ -63,8 +67,9 @@ namespace ChartsWebAPI.Controllers
             var response = new HttpResponseMessage();
             try
             {
+                var appSettings = AppSettings.Value;
                 object json = SerializationHelper.DeSerializeObject(sample);
-                string exportServerUrl = source.Trim().ToLower() == "external" ? Configuration.GetSection("appSettings").GetSection("PublicChartExportServerUrl").Value : Configuration.GetSection("appSettings").GetSection("PrivateChartExportServerUrl").Value;
+                string exportServerUrl = source.Trim().ToLower() == "external" ? appSettings?.ExportServer?.Public : appSettings?.ExportServer?.Private;
                 _logger.LogInformation($"Export server URL is {exportServerUrl}");
                 _logger.LogInformation($"Incoming Request is {sample}");
                 using (var handler = new HttpClientHandler())
@@ -106,8 +111,9 @@ namespace ChartsWebAPI.Controllers
             var response = new HttpResponseMessage();
             try
             {
+                var appSettings = AppSettings.Value;
                 object json = SerializationHelper.DeSerializeObject(sample);
-                string exportServerUrl = source.Trim().ToLower() == "external" ? Configuration.GetSection("appSettings").GetSection("PublicChartExportServerUrl").Value : Configuration.GetSection("appSettings").GetSection("PrivateChartExportServerUrl").Value;
+                string exportServerUrl = source.Trim().ToLower() == "external" ? appSettings?.ExportServer?.Public : appSettings?.ExportServer?.Private;
                 _logger.LogInformation($"Export server URL is {exportServerUrl}");
                 _logger.LogInformation($"Incoming Request is {sample}");
                 using (var handler = new HttpClientHandler())

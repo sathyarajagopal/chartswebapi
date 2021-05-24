@@ -165,6 +165,11 @@ Now run the below command to remove the containers.
 
     docker system prune -a
 
+## Azure AD Integration
+
+If Authority is https://login.microsoftonline.com/common then Audience is mandatory
+If Authority is https://sts.windows.net/common then Audience is not needed
+
 Congratulations! You've successfully created a small, independent ChartsWebAPI using ASP.NET Core Webapi that can be deployed and scaled using Docker containers.
 
 These are the fundamental building blocks to get an ASP.NET Core web api into a Docker container.
