@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: spr1986/chartswebapi:latest
+        tags: ${{ secrets.AzureAppService_ContainerUsername_da35034c0b0c46d88fd4c57333a8c6e3 }}/chartswebapi:latest
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'chartswebapi'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_1b81f9ec71bd4096b9d8919a8af6be94 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_da35034c0b0c46d88fd4c57333a8c6e3 }}/spr1986/chartswebapi:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_da35034c0b0c46d88fd4c57333a8c6e3 }}/chartswebapi:latest'
